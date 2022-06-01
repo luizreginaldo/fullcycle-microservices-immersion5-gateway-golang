@@ -2,6 +2,7 @@ package entity
 
 import (
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -23,4 +24,11 @@ func TestCreditCardExpirationMonth(t *testing.T) {
 
 	_, err = NewCreditCard("4193523830170205", "Luiz Reginaldo", 11, 2024, 123)
 	assert.Nil(t, err)
+}
+
+func TestCredidCardExpirationYear(t *testing.T) {
+	lastYear := time.Now().AddDate(-1, 0, 0)
+
+	_, err := NewCreditCard("4193523830170205", "Luiz Reginaldo", 12, lastYear.Year(), 123)
+	assert.Equal(t, "invalid expiration year", err.Error())
 }
